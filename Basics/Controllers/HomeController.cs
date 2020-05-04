@@ -22,12 +22,26 @@ namespace Basics.Controllers
             return View();
         }
 
+        [Authorize(Policy = "Claim.DoB")]
+        public IActionResult SecretPolicy()
+        {
+            return View("Secret");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult SecretRole()
+        {
+            return View("Secret");
+        }
+
         public IActionResult Authenticate()
         {
             var grandmaClaims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name,"Adarsh"),
                 new Claim(ClaimTypes.Email,"adarsh@gmail.com"),
+                new Claim(ClaimTypes.DateOfBirth,"11/01/1991"),
+                new Claim(ClaimTypes.Role,"Admin"),
                 new Claim("Grandma.Says", "Very hot boi")
             };
 
